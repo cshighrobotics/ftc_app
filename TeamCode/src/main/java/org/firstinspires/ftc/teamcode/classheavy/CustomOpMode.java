@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.classheavy;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -12,17 +12,10 @@ public abstract class CustomOpMode extends LinearOpMode {
     ElapsedTime runtime = new ElapsedTime();
 
 
-    abstract void initRobot();
-    abstract void runInstructionList();
-    abstract void dsPrint();
+    abstract public void initRobot();
+    abstract public void runInstructionList();
+    abstract public void dsPrint();
 
-    protected void pauseProgram(double pauseTime){
-        double  startTime = runtime.milliseconds(),
-                endTime = startTime + pauseTime;
-        while (runtime.milliseconds() < endTime){
-            dsPrint();
-        }
-    }
 
     @Override
     public void runOpMode() throws InterruptedException {
