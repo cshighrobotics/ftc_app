@@ -1,9 +1,6 @@
-package org.firstinspires.ftc.teamcode.classheavy.MainBot;
+package org.firstinspires.ftc.teamcode.scratch.classheavy.MainBot;
 
-import org.firstinspires.ftc.robotcore.external.navigation.RelicRecoveryVuMark;
-import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackable;
-import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
-import org.firstinspires.ftc.teamcode.classheavy.CustomOpMode;
+import org.firstinspires.ftc.teamcode.scratch.classheavy.CustomOpMode;
 
 /**
  * Created by asowd on 10/5/2017.
@@ -11,7 +8,7 @@ import org.firstinspires.ftc.teamcode.classheavy.CustomOpMode;
 
 public abstract class MainMode extends CustomOpMode {
     //creat robot and other important opmode objects
-    public MainBot robot = null;
+    public MainBot robot = new MainBot();
 
 //
 //    RelicRecoveryVuMark vuMark = null;
@@ -20,16 +17,14 @@ public abstract class MainMode extends CustomOpMode {
 //
 
     @Override
-    public void initRobot() {
+    public void initRobot(){
+        robot.init(hardwareMap);
         //initialize robot
-        robot = new MainBot();
         robot.stopDriving();
-
 //
 //        //initialize vuforia trackables
 //        relicTrackables =  robot.vuforia.loadTrackablesFromAsset("RelicVuMark");
 //        relicTemplate = relicTrackables.get(0);
-
         dsPrint();
 
         telemetry.update();

@@ -1,14 +1,12 @@
-package org.firstinspires.ftc.teamcode.classheavy.MainBot;
+package org.firstinspires.ftc.teamcode.scratch.classheavy.MainBot;
 
-import com.qualcomm.hardware.bosch.BNO055IMU;
-import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.Range;
 
-import org.firstinspires.ftc.teamcode.FTCMath;
-import org.firstinspires.ftc.teamcode.classheavy.CustomRobot;
+import org.firstinspires.ftc.teamcode.lib.FTCMath;
+import org.firstinspires.ftc.teamcode.scratch.classheavy.CustomRobot;
 
 /**
  * Created by asowd on 10/5/2017.
@@ -17,6 +15,8 @@ import org.firstinspires.ftc.teamcode.classheavy.CustomRobot;
 
 //custom bot that describes the main competition bot added more comments
 public class MainBot extends CustomRobot {
+
+    public MainBot() {}
 
     //motors
     //drive motors for a 4 powered wheel drive train
@@ -67,18 +67,16 @@ public class MainBot extends CustomRobot {
 
     //initializing the hardware components based on config file
     @Override
-    public void init(HardwareMap ahMap) {
-        hMap = ahMap;
+    public void init(HardwareMap ahwMap) {
+        hMap = ahwMap;
 
         frontLeft   =       hMap.get(DcMotor.class, "mFL");
         frontRight  =       hMap.get(DcMotor.class, "mFR");
         rearLeft    =       hMap.get(DcMotor.class, "mRL");
         rearRight   =       hMap.get(DcMotor.class, "mRR");
 
-
         frontLeft.setDirection(DcMotorSimple.Direction.REVERSE);
         rearLeft.setDirection(DcMotorSimple.Direction.REVERSE);
-
 
 //
 //        BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
@@ -105,7 +103,6 @@ public class MainBot extends CustomRobot {
 //
 
     }
-
 
     //DRIVING FUNCTIONS
 

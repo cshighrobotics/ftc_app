@@ -1,5 +1,6 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.scratch;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -9,7 +10,7 @@ import com.qualcomm.robotcore.util.Range;
 /**
  * Created by asowd on 10/17/2017.
  */
-
+@Disabled
 @TeleOp(name = "withTrig")
 public class MecanumWithTrig extends LinearOpMode {
 

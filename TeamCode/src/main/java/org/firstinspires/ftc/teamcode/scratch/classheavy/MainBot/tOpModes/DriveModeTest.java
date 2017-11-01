@@ -1,16 +1,16 @@
-package org.firstinspires.ftc.teamcode.classheavy.MainBot.tOpModes;
+package org.firstinspires.ftc.teamcode.scratch.classheavy.MainBot.tOpModes;
 
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import org.firstinspires.ftc.teamcode.classheavy.MainBot.MainBot;
-import org.firstinspires.ftc.teamcode.classheavy.MainBot.MainMode;
+import org.firstinspires.ftc.teamcode.scratch.classheavy.MainBot.MainBot;
+import org.firstinspires.ftc.teamcode.scratch.classheavy.MainBot.MainMode;
 
 /**
  * Created by asowd on 10/5/2017.
  */
-
-
+@Disabled
 @TeleOp(name = "DriveModeTest")
 public class DriveModeTest extends MainMode {
 
