@@ -17,7 +17,7 @@ public abstract class MainMode extends CustomOpMode {
 //
 
     @Override
-    public void initRobot(){
+    public void initRobot() {
         robot.init(hardwareMap);
         //initialize robot
         robot.stopDriving();

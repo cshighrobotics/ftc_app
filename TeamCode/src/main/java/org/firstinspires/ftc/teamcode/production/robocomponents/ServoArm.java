@@ -15,7 +15,7 @@ public class ServoArm extends RoboComponent {
 
     private String SERVO_NAME = null;
 
-    public ServoArm(String sName, double ePos, double rPos){
+    public ServoArm(String sName, double ePos, double rPos) {
         SERVO_NAME = sName;
         ENGAGE_POS = ePos;
         RETRACT_POS = rPos;
@@ -28,15 +28,15 @@ public class ServoArm extends RoboComponent {
         retractArm();
     }
 
-    public void engageArm(){
+    public void engageArm() {
         arm.setPosition(ENGAGE_POS);
     }
 
-    public void retractArm(){
+    public void retractArm() {
         arm.setPosition(RETRACT_POS);
     }
 
-    public void freeSet(double p){
+    public void freeSet(double p) {
         arm.setPosition(p);
     }
 

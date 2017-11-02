@@ -17,7 +17,7 @@ public class DriveModeTest extends MainMode {
     @Override
     public void runInstructionList() {
         robot.setDriveMode(MainBot.DriveMode.SKID);
-        while(opModeIsActive()){
+        while (opModeIsActive()) {
             if (gamepad1.x)
                 robot.setDriveMode(MainBot.DriveMode.SKID);
             if (gamepad1.y)

@@ -12,7 +12,9 @@ public abstract class COpMode extends LinearOpMode {
     protected ElapsedTime et = new ElapsedTime();
 
     public abstract void initOpmode();
+
     public abstract void runInstructions();
+
     public abstract void stopRobot();
 
     @Override

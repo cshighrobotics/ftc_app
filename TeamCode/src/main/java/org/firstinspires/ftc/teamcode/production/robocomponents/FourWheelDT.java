@@ -82,7 +82,7 @@ public class FourWheelDT extends RoboComponent {
             rlPower = 0,
             rrPower = 0;
 
-    public void init(HardwareMap hMap, DriveMode dm){
+    public void init(HardwareMap hMap, DriveMode dm) {
         setDriveMode(dm);
         init(hMap);
     }
@@ -104,7 +104,7 @@ public class FourWheelDT extends RoboComponent {
 
 
     //standardization for driving by power
-    public void passPowers(){
+    public void passPowers() {
 
 
         flPower = FTCMath.filterMotorPower(flPower, MIN_POWER, MAX_POWER, STALL_POWER);
@@ -119,7 +119,7 @@ public class FourWheelDT extends RoboComponent {
     }
 
     //stopping function
-    public void stopDriving(){
+    public void stopDriving() {
 
         //assign appropriate wheel powers
         flPower = 0;
@@ -131,7 +131,7 @@ public class FourWheelDT extends RoboComponent {
     }
 
     //skid steer tank controls
-    public void driveByTank(double left, double right){
+    public void driveByTank(double left, double right) {
 
         //assign appropriate wheel powers
         flPower = left;
@@ -143,16 +143,15 @@ public class FourWheelDT extends RoboComponent {
     }
 
     //drive by pov controls
-    public void driveByPOV(double drive, double turn){
+    public void driveByPOV(double drive, double turn) {
         double left, right, max;
         // Combine drive and turn for blended motion.
-        left  = drive + turn;
+        left = drive + turn;
         right = drive - turn;
 
         // Normalize the values so neither exceed +/- 1.0
         max = Math.max(Math.abs(left), Math.abs(right));
-        if (max > 1.0)
-        {
+        if (max > 1.0) {
             left /= max;
             right /= max;
         }
@@ -161,20 +160,20 @@ public class FourWheelDT extends RoboComponent {
     }
 
     //mecanum controlled no trig example
-    public void driveByNoTrig(double moveX, double moveY, double moveR){
+    public void driveByNoTrig(double moveX, double moveY, double moveR) {
 
         //determine motor powers based on movement values
 
-        flPower     =   Range.clip( -moveX + moveY + moveR,  -1, 1);
-        frPower     =   Range.clip( moveX + moveY - moveR,   -1, 1);
-        rlPower     =   Range.clip( moveX + moveY + moveR,   -1, 1);
-        rrPower     =   Range.clip( -moveX + moveY - moveR,  -1, 1);
+        flPower = Range.clip(-moveX + moveY + moveR, -1, 1);
+        frPower = Range.clip(moveX + moveY - moveR, -1, 1);
+        rlPower = Range.clip(moveX + moveY + moveR, -1, 1);
+        rrPower = Range.clip(-moveX + moveY - moveR, -1, 1);
 
         passPowers();
 
     }
 
-    public void driveByTrig(double power, double angle, double rotation){
+    public void driveByTrig(double power, double angle, double rotation) {
 
         flPower = (power * Math.cos(angle) + rotation);
         frPower = (power * Math.sin(angle) - rotation);
@@ -184,18 +183,18 @@ public class FourWheelDT extends RoboComponent {
         passPowers();
     }
 
-    public void setDriveMode(DriveMode dm){
+    public void setDriveMode(DriveMode dm) {
         dMode = dm;
     }
 
-    public DriveMode getDriveMode(){
+    public DriveMode getDriveMode() {
         return dMode;
     }
 
-    public void driveByDM(double ly,double lx,double ry,double rx){
-        switch (dMode){
+    public void driveByDM(double ly, double lx, double ry, double rx) {
+        switch (dMode) {
             case SKID:
-                driveByTank(ly,ry);
+                driveByTank(ly, ry);
             case POV:
                 driveByPOV(ly, rx);
             case NOTRIG:

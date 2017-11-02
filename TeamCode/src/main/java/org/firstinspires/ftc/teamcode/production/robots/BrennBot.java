@@ -6,7 +6,6 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.teamcode.production.robocomponents.FourWheelDT;
 import org.firstinspires.ftc.teamcode.production.robocomponents.ServoArm;
-import org.firstinspires.ftc.teamcode.production.robocomponents.VFRelic;
 
 /**
  * Created by asowd on 10/28/2017.
@@ -16,13 +15,13 @@ public class BrennBot extends Robot {
     public FourWheelDT dt = new FourWheelDT();
 
 
-    double je = 1, jr = .5;
-    public ServoArm leftJewel   = new ServoArm("sLJ", je, jr);
-    public ServoArm rightJewel  = new ServoArm("sRJ", 1-je, 1-jr);
+    private double je = 1, jr = .2;
+    public ServoArm leftJewel = new ServoArm("sLJ", je, jr);
+    public ServoArm rightJewel = new ServoArm("sRJ", 1 - je, 1 - jr);
 
     double gEn = 1, gRe = .2;
-    public ServoArm leftGrab    = new ServoArm("sLG", gEn, gRe);
-    public ServoArm rightGrab   = new ServoArm("sRG", 1 - gEn, 1 - gRe);
+    public ServoArm leftGrab = new ServoArm("sLG", gEn, gRe);
+    public ServoArm rightGrab = new ServoArm("sRG", 1 - gEn, 1 - gRe);
 
     public ColorSensor cLJ;
     public ColorSensor cRJ;
@@ -30,24 +29,23 @@ public class BrennBot extends Robot {
 
     public DcMotor mWinch;
 
-    public VFRelic vf;
 
-    public void engageGrabbers(){
+    public void engageGrabbers() {
         leftGrab.retractArm();
         rightGrab.retractArm();
     }
 
-    public void retractGrabbers(){
+    public void retractGrabbers() {
         leftGrab.engageArm();
         rightGrab.engageArm();
     }
 
-    public void retractJewels(){
+    public void retractJewels() {
         leftJewel.retractArm();
         rightJewel.retractArm();
     }
 
-    public void engageJewels(){
+    public void engageJewels() {
         leftJewel.engageArm();
         rightJewel.engageArm();
     }
@@ -69,14 +67,13 @@ public class BrennBot extends Robot {
         dt.setSTALL_POWER(.05);
         dt.init(hMap, FourWheelDT.DriveMode.TRIG);
 
-        leftJewel.  init(hMap);
-        rightJewel. init(hMap);
-        leftGrab.   init(hMap);
-        rightGrab.  init(hMap);
+        leftJewel.init(hMap);
+        rightJewel.init(hMap);
+        leftGrab.init(hMap);
+        rightGrab.init(hMap);
 
         engageGrabbers();
 
-        vf.init(hMap);
 
     }
 
@@ -86,5 +83,6 @@ public class BrennBot extends Robot {
         retractGrabbers();
         leftJewel.retractArm();
         rightJewel.retractArm();
+        mWinch.setPower(0);
     }
 }

@@ -10,7 +10,6 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 public class JewelKnock extends LinearOpMode {
 
 
-
     @Override
     public void runOpMode() throws InterruptedException {
 

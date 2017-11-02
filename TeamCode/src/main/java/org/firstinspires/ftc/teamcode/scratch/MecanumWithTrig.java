@@ -26,16 +26,16 @@ public class MecanumWithTrig extends LinearOpMode {
     //motor powers
     double flPower, frPower, rlPower, rrPower;
 
-    public void initRobot(){
+    public void initRobot() {
 
         //associate config value pairs with objects
-        frontLeft   =       hardwareMap.get(DcMotor.class, "mFL");
-        frontRight  =       hardwareMap.get(DcMotor.class, "mFR");
-        rearLeft    =       hardwareMap.get(DcMotor.class, "mRL");
-        rearRight   =       hardwareMap.get(DcMotor.class, "mRR");
+        frontLeft = hardwareMap.get(DcMotor.class, "mFL");
+        frontRight = hardwareMap.get(DcMotor.class, "mFR");
+        rearLeft = hardwareMap.get(DcMotor.class, "mRL");
+        rearRight = hardwareMap.get(DcMotor.class, "mRR");
 
-        frontLeft   .setDirection(DcMotorSimple.Direction.REVERSE);
-        rearLeft    .setDirection(DcMotorSimple.Direction.REVERSE);
+        frontLeft.setDirection(DcMotorSimple.Direction.REVERSE);
+        rearLeft.setDirection(DcMotorSimple.Direction.REVERSE);
 
     }
 
@@ -48,13 +48,13 @@ public class MecanumWithTrig extends LinearOpMode {
         waitForStart();
 
 
-        while(opModeIsActive()){
+        while (opModeIsActive()) {
 
             //get movement values from gamepads
 
-            power       =   Math.hypot(gamepad1.left_stick_x, -gamepad1.left_stick_y);
-            angle       =   Math.atan2(-gamepad1.left_stick_y, gamepad1.left_stick_x) - Math.PI / 4;
-            rotation    =   gamepad1.right_stick_x;
+            power = Math.hypot(gamepad1.left_stick_x, -gamepad1.left_stick_y);
+            angle = Math.atan2(-gamepad1.left_stick_y, gamepad1.left_stick_x) - Math.PI / 4;
+            rotation = gamepad1.right_stick_x;
 
             //determine motor powers based on movement values
 
@@ -66,10 +66,10 @@ public class MecanumWithTrig extends LinearOpMode {
 
             //push motor powers to robot
 
-            frontLeft   .setPower(flPower);
-            frontRight  .setPower(frPower);
-            rearLeft    .setPower(rlPower);
-            rearRight   .setPower(rrPower);
+            frontLeft.setPower(flPower);
+            frontRight.setPower(frPower);
+            rearLeft.setPower(rlPower);
+            rearRight.setPower(rrPower);
         }
     }
 }

@@ -8,6 +8,8 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 
 public abstract class Robot {
     HardwareMap robotHardware = null;
+
     public abstract void init(HardwareMap hMap);
+
     public abstract void stopRobot();
 }

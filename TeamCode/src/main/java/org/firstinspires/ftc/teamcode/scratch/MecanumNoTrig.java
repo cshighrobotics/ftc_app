@@ -31,39 +31,39 @@ public class MecanumNoTrig extends LinearOpMode {
     public void runOpMode() throws InterruptedException {
 
         //associate config value pairs with objects
-        frontLeft   =   hardwareMap.get(DcMotor.class, "mFL");
-        frontRight  =   hardwareMap.get(DcMotor.class, "mFR");
-        rearLeft    =   hardwareMap.get(DcMotor.class, "mRL");
-        rearRight   =   hardwareMap.get(DcMotor.class, "mRR");
+        frontLeft = hardwareMap.get(DcMotor.class, "mFL");
+        frontRight = hardwareMap.get(DcMotor.class, "mFR");
+        rearLeft = hardwareMap.get(DcMotor.class, "mRL");
+        rearRight = hardwareMap.get(DcMotor.class, "mRR");
 
         //reverse left wheels
-        frontLeft   .setDirection(DcMotorSimple.Direction.REVERSE);
-        rearLeft    .setDirection(DcMotorSimple.Direction.REVERSE);
+        frontLeft.setDirection(DcMotorSimple.Direction.REVERSE);
+        rearLeft.setDirection(DcMotorSimple.Direction.REVERSE);
 
         waitForStart();
 
 
-        while(opModeIsActive()){
+        while (opModeIsActive()) {
 
             //get movement values from gamepads
 
-            moveX   =     gamepad1.left_stick_x;
-            moveY   =     -gamepad1.left_stick_y;
-            moveR   =     gamepad1.right_stick_x;
+            moveX = gamepad1.left_stick_x;
+            moveY = -gamepad1.left_stick_y;
+            moveR = gamepad1.right_stick_x;
 
             //determine motor powers based on movement values
 
-            flPower     =   Range.clip( -moveX + moveY + moveR,  -1, 1);
-            frPower     =   Range.clip( moveX + moveY - moveR,   -1, 1);
-            rlPower     =   Range.clip( moveX + moveY + moveR,   -1, 1);
-            rrPower     =   Range.clip( -moveX + moveY - moveR,  -1, 1);
+            flPower = Range.clip(-moveX + moveY + moveR, -1, 1);
+            frPower = Range.clip(moveX + moveY - moveR, -1, 1);
+            rlPower = Range.clip(moveX + moveY + moveR, -1, 1);
+            rrPower = Range.clip(-moveX + moveY - moveR, -1, 1);
 
             //push motor powers to robot
 
-            frontLeft   .setPower(flPower);
-            frontRight  .setPower(frPower);
-            rearLeft    .setPower(rlPower);
-            rearRight   .setPower(rrPower);
+            frontLeft.setPower(flPower);
+            frontRight.setPower(frPower);
+            rearLeft.setPower(rlPower);
+            rearRight.setPower(rrPower);
         }
     }
 }

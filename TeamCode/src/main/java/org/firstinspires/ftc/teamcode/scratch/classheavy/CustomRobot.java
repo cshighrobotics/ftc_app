@@ -10,7 +10,8 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 public abstract class CustomRobot {
     public HardwareMap hMap = null;
 
-    public CustomRobot(){}
+    public CustomRobot() {
+    }
 
     //all robots require a hardwaremap to be passed from opmode
     abstract public void init(HardwareMap ahwMap);
