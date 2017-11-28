@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.production.robocomponents;
+package org.firstinspires.ftc.teamcode.components;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
@@ -9,9 +9,13 @@ import org.firstinspires.ftc.teamcode.lib.FTCMath;
 
 /**
  * Created by asowd on 10/28/2017.
+ * <p>
+ * code for a typical four wheel drive robot with multiple drive modes
+ * <p>
+ * the different drive modes allow for control in various different wheel setups
  */
 
-public class FourWheelDT extends RoboComponent {
+public class FourWheelDT extends CRoboComponent {
     //motors
     //drive motors for a 4 powered wheel drive train
     private DcMotor frontLeft = null;
@@ -20,60 +24,8 @@ public class FourWheelDT extends RoboComponent {
     private DcMotor rearRight = null;
 
     private DriveMode dMode;
-
-    public enum DriveMode {
-        SKID,
-        POV,
-        NOTRIG,
-        TRIG
-    }
-
-
-    public double getMIN_POWER() {
-        return MIN_POWER;
-    }
-
-    public void setMIN_POWER(double MIN_POWER) {
-        this.MIN_POWER = MIN_POWER;
-    }
-
-    public double getMAX_POWER() {
-        return MAX_POWER;
-    }
-
-    public void setMAX_POWER(double MAX_POWER) {
-        this.MAX_POWER = MAX_POWER;
-    }
-
-    public double getSTALL_POWER() {
-        return STALL_POWER;
-    }
-
-    public void setSTALL_POWER(double STALL_POWER) {
-        this.STALL_POWER = STALL_POWER;
-    }
-
-    public double getCRAWL_POWER() {
-        return CRAWL_POWER;
-    }
-
-    public void setCRAWL_POWER(double CRAWL_POWER) {
-        this.CRAWL_POWER = CRAWL_POWER;
-    }
-
-    public double getCRUISE_POWER() {
-        return CRUISE_POWER;
-    }
-
-    public void setCRUISE_POWER(double CRUISE_POWER) {
-        this.CRUISE_POWER = CRUISE_POWER;
-    }
-
     //driving constants
-    double MIN_POWER = -1, MAX_POWER = 1, STALL_POWER = 1;
-    double CRAWL_POWER = .2, CRUISE_POWER = 1;
-
-
+    private double MIN_POWER, MAX_POWER, STALL_POWER, SCALE_POWER;
     //motor powers for tracking and pass powers method
     //these will be public but the motors will not
     private double
@@ -82,6 +34,14 @@ public class FourWheelDT extends RoboComponent {
             rlPower = 0,
             rrPower = 0;
 
+
+    public FourWheelDT(double minPow, double maxPow, double stallPow, double scalePow) {
+        MIN_POWER = minPow;
+        MAX_POWER = maxPow;
+        STALL_POWER = stallPow;
+        SCALE_POWER = scalePow;
+    }
+
     public void init(HardwareMap hMap, DriveMode dm) {
         setDriveMode(dm);
         init(hMap);
@@ -89,28 +49,39 @@ public class FourWheelDT extends RoboComponent {
 
     @Override
     public void init(HardwareMap hMap) {
-        componentMap = hMap;
 
         frontLeft = hMap.get(DcMotor.class, "mFL");
         frontRight = hMap.get(DcMotor.class, "mFR");
         rearLeft = hMap.get(DcMotor.class, "mRL");
         rearRight = hMap.get(DcMotor.class, "mRR");
 
-        frontLeft.setDirection(DcMotorSimple.Direction.REVERSE);
-        rearLeft.setDirection(DcMotorSimple.Direction.REVERSE);
+        frontRight.setDirection(DcMotorSimple.Direction.REVERSE);
+        rearRight.setDirection(DcMotorSimple.Direction.REVERSE);
+
+        sBuild.append("DriveTrain:\n");
 
         stopDriving();
     }
 
+    @Override
+    public String debugString() {
+        sBuild.setLength(1);
+        sBuild.append("flPow: \t").append(frontLeft.getPower()).append("\n");
+        sBuild.append("frPow: \t").append(frontRight.getPower()).append("\n");
+        sBuild.append("rlPow: \t").append(rearLeft.getPower()).append("\n");
+        sBuild.append("rrPow: \t").append(rearRight.getPower());
+
+        return sBuild.toString();
+    }
 
     //standardization for driving by power
-    public void passPowers() {
+    private void passPowers() {
 
 
-        flPower = FTCMath.filterMotorPower(flPower, MIN_POWER, MAX_POWER, STALL_POWER);
-        frPower = FTCMath.filterMotorPower(frPower, MIN_POWER, MAX_POWER, STALL_POWER);
-        rlPower = FTCMath.filterMotorPower(rlPower, MIN_POWER, MAX_POWER, STALL_POWER);
-        rrPower = FTCMath.filterMotorPower(rrPower, MIN_POWER, MAX_POWER, STALL_POWER);
+        flPower = FTCMath.filterMotorPower(flPower, MIN_POWER, MAX_POWER, STALL_POWER, SCALE_POWER);
+        frPower = FTCMath.filterMotorPower(frPower, MIN_POWER, MAX_POWER, STALL_POWER, SCALE_POWER);
+        rlPower = FTCMath.filterMotorPower(rlPower, MIN_POWER, MAX_POWER, STALL_POWER, SCALE_POWER);
+        rrPower = FTCMath.filterMotorPower(rrPower, MIN_POWER, MAX_POWER, STALL_POWER, SCALE_POWER);
 
         frontLeft.setPower(flPower);
         frontRight.setPower(frPower);
@@ -173,6 +144,7 @@ public class FourWheelDT extends RoboComponent {
 
     }
 
+    //uses trig to get strafing
     public void driveByTrig(double power, double angle, double rotation) {
 
         flPower = (power * Math.cos(angle) + rotation);
@@ -183,12 +155,12 @@ public class FourWheelDT extends RoboComponent {
         passPowers();
     }
 
-    public void setDriveMode(DriveMode dm) {
-        dMode = dm;
-    }
-
     public DriveMode getDriveMode() {
         return dMode;
+    }
+
+    public void setDriveMode(DriveMode dm) {
+        dMode = dm;
     }
 
     public void driveByDM(double ly, double lx, double ry, double rx) {
@@ -206,6 +178,13 @@ public class FourWheelDT extends RoboComponent {
                         rx
                 );
         }
+    }
+
+    public enum DriveMode {
+        SKID,
+        POV,
+        NOTRIG,
+        TRIG
     }
 
 
